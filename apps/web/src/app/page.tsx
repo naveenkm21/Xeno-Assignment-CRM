@@ -49,7 +49,7 @@ function Nav() {
         <div className="ml-auto flex items-center gap-1">
           <ThemeToggle />
           <a
-            href="https://github.com"
+            href="https://github.com/naveenkm21/Xeno-Assignment-CRM"
             className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-lg text-ink-soft hover:text-ink hover:bg-muted transition-all"
             target="_blank"
             rel="noreferrer"
@@ -273,7 +273,7 @@ function Footer() {
           <a href="#" className="hover:text-ink transition-colors">Privacy</a>
           <a href="#" className="hover:text-ink transition-colors">Terms</a>
           <a
-            href="https://github.com"
+            href="https://github.com/naveenkm21/Xeno-Assignment-CRM"
             target="_blank"
             rel="noreferrer"
             className="hover:text-ink transition-colors inline-flex items-center gap-1.5"
