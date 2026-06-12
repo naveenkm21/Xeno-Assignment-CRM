@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "cd ../.. && pnpm install --frozen-lockfile=false && pnpm --filter=@xeno/web build",
+  "installCommand": "echo 'install handled in buildCommand'",
+  "outputDirectory": ".next",
+  "regions": ["bom1"],
+  "functions": {
+    "src/app/api/copilot/route.ts": { "maxDuration": 60 },
+    "src/app/api/campaigns/route.ts": { "maxDuration": 60 },
+    "src/app/api/campaigns/[id]/summary/route.ts": { "maxDuration": 30 }
+  }
+}
