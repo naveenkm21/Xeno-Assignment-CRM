@@ -1,0 +1,38 @@
+node_modules/
+.pnpm-store/
+.pnpm-debug.log*
+
+dist/
+build/
+.next/
+.turbo/
+*.tsbuildinfo
+
+.env
+.env.local
+.env.*.local
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+*.bak
+
+coverage/
+.nyc_output/
+
+# Vercel CLI
+.vercel/
+
+# Fly CLI
+.fly/
+
+# Drizzle journal backup
+drizzle/meta/_journal.json.bak
+
+# Claude Code session files — local working state only
+.claude/
+
+# Assignment PDF (kept locally, not redistributed)
+Xeno Engineering Internship Assignment - 2026.pdf

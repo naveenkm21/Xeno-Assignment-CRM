@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile=false
+
+      - name: Typecheck
+        run: pnpm -r typecheck
+
+      - name: Build web
+        run: pnpm --filter=@xeno/web build
+        env:
+          # Build-time placeholders — runtime uses Vercel secrets.
+          DATABASE_URL: postgresql://x:x@x.neon.tech/x?sslmode=require
+          GROQ_API_KEY: gsk_x
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_cGxhY2Vob2xkZXIuY2xlcmsuYWNjb3VudHMuZGV2JA
+          CLERK_SECRET_KEY: sk_test_x
+          REDIS_URL: rediss://default:x@x.upstash.io:6379
+          CHANNEL_WEBHOOK_SECRET: ci-placeholder-secret-not-used-at-build-time
+
+      - name: Build channel
+        run: pnpm --filter=@xeno/channel build
