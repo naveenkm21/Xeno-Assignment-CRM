@@ -28,12 +28,17 @@ export default async function Landing() {
 }
 
 function BrandMark({ size = 8 }: { size?: number }) {
+  const px = size * 4; // tailwind 8 → 32px etc.
   return (
     <div
-      className={`w-${size} h-${size} rounded-xl flex items-center justify-center shadow-sm`}
-      style={{ background: 'var(--grad-violet)' }}
+      className="rounded-xl overflow-hidden bg-surface-2 border border-border flex items-center justify-center"
+      style={{ width: px, height: px }}
     >
-      <IconSparkles size={size * 2} className="text-white" />
+      <img
+        src="/logo.svg"
+        alt="Xeno Copilot"
+        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+      />
     </div>
   );
 }

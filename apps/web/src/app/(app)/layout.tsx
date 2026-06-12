@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { IconSparkles } from '@tabler/icons-react';
 import { NavLink } from '@/components/nav-link';
 import { UserButton } from '@/components/user-button';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -10,11 +9,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <header className="surface-glass sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center gap-6">
           <Link href="/home" className="flex items-center gap-2.5 font-semibold tracking-tight">
-            <div
-              className="w-8 h-8 rounded-xl flex items-center justify-center shadow-sm"
-              style={{ background: 'var(--grad-violet)' }}
-            >
-              <IconSparkles size={16} className="text-white" />
+            <div className="w-8 h-8 rounded-xl overflow-hidden bg-surface-2 border border-border flex items-center justify-center">
+              <img
+                src="/logo.svg"
+                alt="Xeno Copilot"
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              />
             </div>
             <span className="text-[15px]">Xeno Copilot</span>
           </Link>
