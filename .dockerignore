@@ -1,0 +1,33 @@
+# pnpm + node
+node_modules
+**/node_modules
+.pnpm-store
+**/dist
+**/build
+**/.next
+**/.turbo
+**/*.tsbuildinfo
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# IDE & OS
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.log
+
+# Misc
+.claude
+.github
+.git
+docs
+Xeno*.pdf
+.next
+apps/web
+
+# Drizzle backups
+**/drizzle/meta/_journal.json.bak
