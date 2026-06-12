@@ -1,26 +1,27 @@
-FROM node:22-alpine AS base
-RUN corepack enable
-WORKDIR /repo
+FROM node:22-alpine
 
-FROM base AS deps
-COPY pnpm-workspace.yaml package.json .npmrc ./
+# pnpm via corepack — pinned to match the workspace.
+RUN corepack enable && corepack prepare pnpm@10.0.0 --activate
+
+WORKDIR /app
+
+# Workspace skeleton first — better Docker layer caching: deps only re-install
+# when package manifests change, not when source changes.
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml .npmrc ./
 COPY apps/channel/package.json apps/channel/
 COPY packages/types/package.json packages/types/
-RUN pnpm install --filter=@xeno/channel... --frozen-lockfile=false
 
-FROM base AS build
-COPY --from=deps /repo/node_modules ./node_modules
+# Install only what the channel service needs.
+RUN pnpm install --filter=@xeno/channel... --frozen-lockfile=false --prod=false
+
+# Now bring in source.
 COPY tsconfig.base.json ./
 COPY packages/types packages/types
 COPY apps/channel apps/channel
-RUN pnpm --filter=@xeno/channel build
 
-FROM node:22-alpine AS runtime
-WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=build /repo/apps/channel/dist ./dist
-COPY --from=build /repo/apps/channel/package.json ./
-COPY --from=build /repo/packages/types ./node_modules/@xeno/types
-COPY --from=deps /repo/node_modules ./node_modules
+ENV PORT=4000
 EXPOSE 4000
-CMD ["node", "dist/index.js"]
+
+WORKDIR /app/apps/channel
+CMD ["pnpm", "start"]
